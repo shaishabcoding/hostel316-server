@@ -34,6 +34,7 @@ const giveReview: RequestHandler = catchAsync(async (req, res) => {
     message: "Review update successfully!",
     data: {
       review: req.body.review,
+      rating: req.body.rating,
     },
   });
 });

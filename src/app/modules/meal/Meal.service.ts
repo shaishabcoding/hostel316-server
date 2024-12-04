@@ -31,7 +31,7 @@ const insertMealToDB = async (req: Request) => {
 };
 
 const giveReviewToMeal = async (req: Request) => {
-  const { review } = req.body;
+  const { review, rating } = req.body;
   const mealId = req.params.id;
   const userId = req.user._id;
 
@@ -45,9 +45,10 @@ const giveReviewToMeal = async (req: Request) => {
     (r) => r.user.toString() === userId.toString()
   );
 
-  existingReviewIndex !== -1
-    ? (meal.reviews[existingReviewIndex].review = review)
-    : meal.reviews.push({ user: userId, review });
+  if (existingReviewIndex !== -1) {
+    meal.reviews[existingReviewIndex].review = review;
+    meal.reviews[existingReviewIndex].rating = rating;
+  } else meal.reviews.push({ user: userId, review, rating });
 
   await meal.save();
 };

@@ -17,7 +17,6 @@ const mealSchema = new Schema<TMeal>({
     required: true,
     default: () => new Date().toISOString(),
   },
-  likes: { type: Number, required: true, default: 0 },
   reviews: [
     {
       user: {
@@ -26,11 +25,14 @@ const mealSchema = new Schema<TMeal>({
         required: true,
       },
       review: { type: String, required: true },
+      rating: {
+        type: Number,
+        required: true,
+      },
     },
   ],
   description: { type: String, required: true },
-  rating: { type: Number, required: true, default: 0 },
-  likedBy: [String],
+  likes: [String],
 });
 
 const Meal = model<TMeal>("Meal", mealSchema);
