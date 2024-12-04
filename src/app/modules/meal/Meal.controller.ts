@@ -4,14 +4,14 @@ import { mealServices } from "./Meal.service";
 import sendResponse from "../../utils/sendResponse";
 import { StatusCodes } from "http-status-codes";
 
-const getAllMeals: RequestHandler = catchAsync(async (_req, res) => {
-  const meals = await mealServices.getAllMealFromDB();
+const getAllMeals: RequestHandler = catchAsync(async (req, res) => {
+  const mealData = await mealServices.getAllMealFromDB(req.query);
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
     success: true,
-    message: "User is retrieved successfully!",
-    data: meals,
+    message: "Meals are retrieved successfully!",
+    data: mealData,
   });
 });
 
