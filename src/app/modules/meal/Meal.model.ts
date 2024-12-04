@@ -2,8 +2,11 @@ import { model, Schema } from "mongoose";
 import { TMeal } from "./Meal.interface";
 
 const mealSchema = new Schema<TMeal>({
-  email: { type: String, required: true },
-  username: { type: String, required: true },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   image: { type: String, required: true },
   title: { type: String, required: true },
   category: { type: String, required: true },
@@ -14,16 +17,20 @@ const mealSchema = new Schema<TMeal>({
     required: true,
     default: () => new Date().toISOString(),
   },
-  likes: { type: Number, required: true },
+  likes: { type: Number, required: true, default: 0 },
   reviews: [
     {
-      email: { type: String, required: true },
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
       review: { type: String, required: true },
     },
   ],
   description: { type: String, required: true },
-  rating: { type: Number, required: true },
-  likedBy: [{ type: String, required: true }],
+  rating: { type: Number, required: true, default: 0 },
+  likedBy: [String],
 });
 
 const Meal = model<TMeal>("Meal", mealSchema);

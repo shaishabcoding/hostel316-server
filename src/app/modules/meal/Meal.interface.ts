@@ -1,11 +1,12 @@
+import { Types } from "mongoose";
+
 type TReview = {
-  email: string;
+  user: Types.ObjectId;
   review: string;
 };
 
 export type TMeal = {
-  email: string;
-  username: string;
+  user: Types.ObjectId;
   image: string;
   title: string;
   category: string;

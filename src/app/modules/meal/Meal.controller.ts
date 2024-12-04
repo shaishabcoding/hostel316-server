@@ -15,6 +15,21 @@ const getAllMeals: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const createMeal: RequestHandler = catchAsync(async (req, res) => {
+  const data = await mealServices.insertMealToDB(req);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Meals has created successfully!",
+    data,
+  });
+});
+
+const giveReview : RequestHandler = catchAsync(async (req,res)){
+  const data =  await
+}
+
 export const mealControllers = {
   getAllMeals,
+  createMeal,
 };
