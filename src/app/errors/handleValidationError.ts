@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { TErrorSources, TGenericErrorResponse } from "../interface/error";
-import httpStatus from "http-status";
+import { StatusCodes } from "http-status-codes";
 
 const handleValidationError = (
   err: mongoose.Error.ValidationError
@@ -14,10 +14,8 @@ const handleValidationError = (
     }
   );
 
-  const statusCode = httpStatus.BAD_REQUEST;
-
   return {
-    statusCode,
+    statusCode: StatusCodes.BAD_REQUEST,
     message: "Validation Error",
     errorSources,
   };

@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 import { UserServices } from "./User.service";
 import sendResponse from "../../utils/sendResponse";
-import httpStatus from "http-status";
 import catchAsync from "../../utils/catchAsync";
+import { StatusCodes } from "http-status-codes";
 
 const createUser: RequestHandler = catchAsync(async (req, res) => {
   const { body } = req;
@@ -11,7 +11,7 @@ const createUser: RequestHandler = catchAsync(async (req, res) => {
 
   const result = await UserServices.createUserIntoDB(body);
   sendResponse(res, {
-    statusCode: httpStatus.CREATED,
+    statusCode: StatusCodes.CREATED,
     success: true,
     message: "User create successfully!",
     data: result,
@@ -21,7 +21,7 @@ const createUser: RequestHandler = catchAsync(async (req, res) => {
 const getAllUser: RequestHandler = catchAsync(async (req, res) => {
   const users = await UserServices.getAllUserFromDB(req.query);
   sendResponse(res, {
-    statusCode: httpStatus.OK,
+    statusCode: StatusCodes.OK,
     success: true,
     message: "Users are retrieved successfully!",
     data: users,
@@ -33,7 +33,7 @@ const getAUser: RequestHandler = catchAsync(async (req, res) => {
 
   const users = await UserServices.getAUserFromDB(email);
   sendResponse(res, {
-    statusCode: httpStatus.OK,
+    statusCode: StatusCodes.OK,
     success: true,
     message: "User is retrieved successfully!",
     data: users,
