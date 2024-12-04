@@ -18,7 +18,8 @@ router.post(
 router.patch(
   "/:id/review",
   auth(["ADMIN", "USER"]),
-  validateRequest(mealValidation.reviewValidationSchema)
+  validateRequest(mealValidation.reviewValidationSchema),
+  mealControllers.giveReview
 );
 
 export const MealRoutes = router;

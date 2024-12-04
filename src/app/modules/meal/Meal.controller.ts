@@ -25,11 +25,21 @@ const createMeal: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const giveReview : RequestHandler = catchAsync(async (req,res)){
-  const data =  await
-}
+const giveReview: RequestHandler = catchAsync(async (req, res) => {
+  await mealServices.giveReviewToMeal(req);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Review update successfully!",
+    data: {
+      review: req.body.review,
+    },
+  });
+});
 
 export const mealControllers = {
   getAllMeals,
   createMeal,
+  giveReview,
 };
