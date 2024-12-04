@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get("/", mealControllers.getAllMeals);
 
+router.get("/:id", mealControllers.getSingleMeal);
+
 router.post(
   "/create",
   auth(["ADMIN", "USER"]),

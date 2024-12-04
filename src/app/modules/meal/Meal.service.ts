@@ -23,6 +23,12 @@ const getAllMealFromDB = async (query: QueryParams) => {
   };
 };
 
+const getSingleMealFromDB = async (req: Request) => {
+  const mealId = req.params.id;
+  const meal = await Meal.findById(mealId);
+  return meal;
+};
+
 const insertMealToDB = async (req: Request) => {
   const user = req.user._id;
   const mealData = { ...req.body, user };
@@ -55,6 +61,7 @@ const giveReviewToMeal = async (req: Request) => {
 
 export const mealServices = {
   getAllMealFromDB,
+  getSingleMealFromDB,
   insertMealToDB,
   giveReviewToMeal,
 };
