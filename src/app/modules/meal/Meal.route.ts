@@ -3,6 +3,7 @@ import { mealControllers } from "./Meal.controller";
 import { auth } from "../../middlewares/auth";
 import validateRequest from "../../middlewares/validateRequest";
 import { mealValidation } from "./Meal.validation";
+import { badge } from "../../middlewares/badge";
 
 const router = express.Router();
 
@@ -34,6 +35,7 @@ router.patch(
 router.patch(
   "/:id/like",
   auth(["ADMIN", "USER"]),
+  badge(["platinum"]),
   mealControllers.toggleMealLike
 );
 

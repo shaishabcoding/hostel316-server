@@ -1,6 +1,7 @@
 import { Request } from "express";
 import { stripe } from "./Payment.utils";
 import Payment from "./Payment.model";
+import User from "../user/User.model";
 
 const createPaymentIntern = async (price: number) => {
   const { client_secret: clientSecret } = await stripe.paymentIntents.create({
@@ -23,6 +24,9 @@ const payment = async (req: Request) => {
   };
 
   const payment = await Payment.create(paymentData);
+
+  await User.findByIdAndUpdate(user, { badge }, { new: true });
+
   return payment;
 };
 
