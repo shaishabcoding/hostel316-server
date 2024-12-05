@@ -16,5 +16,5 @@ export type TMeal = {
   time: string;
   reviews: TReview[];
   description: string;
-  likes: string[];
+  likesBy: Types.ObjectId[];
 };

@@ -70,6 +70,16 @@ const giveReview: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const toggleMealLike: RequestHandler = catchAsync(async (req, res) => {
+  const { message } = await mealServices.toggleMealLike(req);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message,
+  });
+});
+
 export const mealControllers = {
   getAllMeals,
   getSingleMeal,
@@ -77,4 +87,5 @@ export const mealControllers = {
   updateMeal,
   deleteMeal,
   giveReview,
+  toggleMealLike,
 };

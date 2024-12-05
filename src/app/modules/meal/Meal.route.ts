@@ -31,6 +31,12 @@ router.patch(
   mealControllers.updateMeal
 );
 
+router.patch(
+  "/:id/like",
+  auth(["ADMIN", "USER"]),
+  mealControllers.toggleMealLike
+);
+
 router.delete(
   "/:id/delete",
   auth(["ADMIN", "USER"]),

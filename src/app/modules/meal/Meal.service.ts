@@ -121,6 +121,29 @@ const giveReviewToMeal = async (req: Request) => {
   await meal.save();
 };
 
+const toggleMealLike = async (req: Request) => {
+  const mealId = req.params.id;
+  const userId = req.user._id;
+
+  const meal = await Meal.findById(mealId);
+
+  if (!meal) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Meal not found");
+  }
+
+  const likeIndex = meal.likesBy.indexOf(userId);
+
+  if (likeIndex > -1) {
+    meal.likesBy.splice(likeIndex, 1);
+  } else {
+    meal.likesBy.push(userId);
+  }
+
+  await meal.save();
+
+  return { message: likeIndex > -1 ? "Meal unliked" : "Meal liked" };
+};
+
 export const mealServices = {
   getAllMealFromDB,
   getSingleMealFromDB,
@@ -128,4 +151,5 @@ export const mealServices = {
   updateMealFromDB,
   deleteMealFromDB,
   giveReviewToMeal,
+  toggleMealLike,
 };

@@ -33,7 +33,7 @@ const mealSchema = new Schema<TMeal>(
       },
     ],
     description: { type: String, required: true },
-    likes: [String],
+    likesBy: [String],
   },
   {
     toJSON: { virtuals: true },
