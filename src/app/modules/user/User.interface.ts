@@ -15,6 +15,7 @@ export type TUser = {
   role: "USER" | "ADMIN" | "SUPER_ADMIN";
   status: "ACTIVE" | "SUSPENDED" | "DELETED";
   badge: TBadge;
+  image: string;
 };
 
 export type TUserMethods = {

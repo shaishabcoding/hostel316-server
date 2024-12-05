@@ -29,6 +29,10 @@ const userSchema = new Schema<TUser, TUserModel, TUserMethods>(
       required: true,
       unique: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
     contactNo: {
       type: String,
       required: true,

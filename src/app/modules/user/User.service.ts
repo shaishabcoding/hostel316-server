@@ -4,7 +4,8 @@ import User from "./User.model";
 import QueryBuilder, { QueryParams } from "../../builder/QueryBuilder";
 import { userSearchableFields } from "./User.constant";
 
-const createUserIntoDB = async (user: TUser) => await User.create(user);
+const createUserIntoDB = async (user: Partial<TUser>) =>
+  await User.create(user);
 const getAllUserFromDB = async (query: QueryParams) => {
   const userQuery = new QueryBuilder(User.find(), query)
     .search(userSearchableFields)

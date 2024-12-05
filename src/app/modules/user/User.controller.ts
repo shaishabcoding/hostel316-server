@@ -3,17 +3,36 @@ import { UserServices } from "./User.service";
 import sendResponse from "../../utils/sendResponse";
 import catchAsync from "../../utils/catchAsync";
 import { StatusCodes } from "http-status-codes";
+import { TUser } from "./User.interface";
 
 const createUser: RequestHandler = catchAsync(async (req, res) => {
-  const { body } = req;
+  const {
+    firstName,
+    lastName,
+    gender,
+    email,
+    contactNo,
+    dateOfBirth,
+    password,
+    image,
+  } = req.body;
 
-  if (body.dateOfBirth) body.dateOfBirth = new Date(body.dateOfBirth);
+  const userData: Partial<TUser> = {
+    name: { firstName, lastName },
+    gender,
+    email,
+    password,
+    dateOfBirth: new Date(dateOfBirth),
+    contactNo,
+    image: image,
+  };
 
-  const result = await UserServices.createUserIntoDB(body);
+  const result = await UserServices.createUserIntoDB(userData);
+
   sendResponse(res, {
     statusCode: StatusCodes.CREATED,
     success: true,
-    message: "User create successfully!",
+    message: "User created successfully!",
     data: result,
   });
 });

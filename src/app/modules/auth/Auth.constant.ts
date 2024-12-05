@@ -14,6 +14,7 @@ export const superAdminData: Partial<TUser> = {
   role: "SUPER_ADMIN",
   status: "ACTIVE",
   badge: "platinum",
+  image: "https://avatars.githubusercontent.com/u/109936547?v=4",
 };
 
 export const makeResetBody = (resetToken: string) => `
