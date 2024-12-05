@@ -26,7 +26,19 @@ const payment = async (req: Request) => {
   return payment;
 };
 
+const paymentHistory = async () => {
+  const payments = await Payment.find()
+    .populate({
+      path: "user",
+      select: "name email",
+    })
+    .sort({ createdAt: -1 });
+
+  return payments;
+};
+
 export const PaymentServices = {
   createPaymentIntern,
   payment,
+  paymentHistory,
 };
