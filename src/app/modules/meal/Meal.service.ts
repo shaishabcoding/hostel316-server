@@ -36,6 +36,34 @@ const insertMealToDB = async (req: Request) => {
   return meal;
 };
 
+const updateMealFromDB = async (req: Request) => {
+  const mealId = req.params.id;
+  const updateData = req.body;
+  const userId = req.user._id;
+  const userRole = req.user.role;
+
+  const meal = await Meal.findById(mealId);
+
+  if (!meal) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Meal not found");
+  }
+
+  if (userRole === "USER" && meal.user.toString() !== userId.toString()) {
+    throw new AppError(
+      StatusCodes.FORBIDDEN,
+      "You are not authorized to update this meal"
+    );
+  }
+
+  const updatedMeal = await Meal.findByIdAndUpdate(
+    mealId,
+    { $set: updateData },
+    { new: true, runValidators: true }
+  );
+
+  return updatedMeal;
+};
+
 const giveReviewToMeal = async (req: Request) => {
   const { review, rating } = req.body;
   const mealId = req.params.id;
@@ -63,5 +91,6 @@ export const mealServices = {
   getAllMealFromDB,
   getSingleMealFromDB,
   insertMealToDB,
+  updateMealFromDB,
   giveReviewToMeal,
 };

@@ -24,4 +24,11 @@ router.patch(
   mealControllers.giveReview
 );
 
+router.patch(
+  "/:id/edit",
+  auth(["ADMIN", "USER"]),
+  validateRequest(mealValidation.updateMealValidationSchema),
+  mealControllers.updateMeal
+);
+
 export const MealRoutes = router;

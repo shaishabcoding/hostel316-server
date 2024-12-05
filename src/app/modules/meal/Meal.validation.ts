@@ -11,6 +11,17 @@ const mealValidationSchema = z.object({
   }),
 });
 
+const updateMealValidationSchema = z.object({
+  body: z.object({
+    image: z.string().url("Invalid URL").optional(),
+    title: z.string().min(1, "Title is required").optional(),
+    category: z.string().min(1, "Category is required").optional(),
+    ingredients: z.string().min(1, "Ingredients are required").optional(),
+    price: z.number().min(0, "Price must be a positive number").optional(),
+    description: z.string().min(1, "Description is required").optional(),
+  }),
+});
+
 const reviewValidationSchema = z.object({
   body: z.object({
     review: z.string().min(1, "Review is required"),
@@ -23,5 +34,6 @@ const reviewValidationSchema = z.object({
 
 export const mealValidation = {
   mealValidationSchema,
+  updateMealValidationSchema,
   reviewValidationSchema,
 };
