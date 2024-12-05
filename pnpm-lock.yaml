@@ -35,6 +35,9 @@ importers:
       nodemailer:
         specifier: ^6.9.16
         version: 6.9.16
+      stripe:
+        specifier: ^17.4.0
+        version: 17.4.0
       zod:
         specifier: ^3.23.8
         version: 3.23.8
@@ -665,6 +668,10 @@ packages:
   strip-ansi@6.0.1:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==}
     engines: {node: '>=8'}
+
+  stripe@17.4.0:
+    resolution: {integrity: sha512-sQQGZguPxe7/QYXJKtDpfzT2OAH9F8nyE2SOsVdTU793iiU33/dpaKgWaJEGJm8396Yy/6NvTLblgdHlueGLhA==}
+    engines: {node: '>=12.*'}
 
   tar@6.2.1:
     resolution: {integrity: sha512-DZ4yORTwrbTj/7MZYq2w+/ZFdI6OZ/f9SFHR+71gIVUZhOQPHzVCLpvRnPgyaMpfWxxk/4ONva3GQSyNIKRv6A==}
@@ -1378,6 +1385,11 @@ snapshots:
   strip-ansi@6.0.1:
     dependencies:
       ansi-regex: 5.0.1
+
+  stripe@17.4.0:
+    dependencies:
+      '@types/node': 22.10.1
+      qs: 6.13.0
 
   tar@6.2.1:
     dependencies:

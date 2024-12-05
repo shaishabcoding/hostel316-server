@@ -1,4 +1,5 @@
 import { Model, Types } from "mongoose";
+import { TBadge } from "./User.constant";
 
 export type TUser = {
   _id: Types.ObjectId;
@@ -13,6 +14,7 @@ export type TUser = {
   contactNo: string;
   role: "USER" | "ADMIN" | "SUPER_ADMIN";
   status: "ACTIVE" | "SUSPENDED" | "DELETED";
+  badge: TBadge;
 };
 
 export type TUserMethods = {
