@@ -31,4 +31,10 @@ router.patch(
   mealControllers.updateMeal
 );
 
+router.delete(
+  "/:id/delete",
+  auth(["ADMIN", "USER"]),
+  mealControllers.deleteMeal
+);
+
 export const MealRoutes = router;

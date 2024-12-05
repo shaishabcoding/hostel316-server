@@ -64,6 +64,31 @@ const updateMealFromDB = async (req: Request) => {
   return updatedMeal;
 };
 
+const deleteMealFromDB = async (req: Request) => {
+  const mealId = req.params.id;
+  const userId = req.user._id;
+  const userRole = req.user.role;
+
+  const meal = await Meal.findById(mealId);
+
+  if (!meal) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Meal not found");
+  }
+
+  if (userRole === "USER" && meal.user.toString() !== userId.toString()) {
+    throw new AppError(
+      StatusCodes.FORBIDDEN,
+      "You are not authorized to delete this meal"
+    );
+  }
+
+  await Meal.findByIdAndDelete(mealId);
+
+  return {
+    message: "Meal deleted successfully",
+  };
+};
+
 const giveReviewToMeal = async (req: Request) => {
   const { review, rating } = req.body;
   const mealId = req.params.id;
@@ -92,5 +117,6 @@ export const mealServices = {
   getSingleMealFromDB,
   insertMealToDB,
   updateMealFromDB,
+  deleteMealFromDB,
   giveReviewToMeal,
 };

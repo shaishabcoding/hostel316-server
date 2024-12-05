@@ -35,6 +35,16 @@ const updateMeal: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const deleteMeal: RequestHandler = catchAsync(async (req, res) => {
+  const data = await mealServices.deleteMealFromDB(req);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Meal has deleted successfully!",
+    data,
+  });
+});
+
 const getSingleMeal: RequestHandler = catchAsync(async (req, res) => {
   const data = await mealServices.getSingleMealFromDB(req);
 
@@ -65,5 +75,6 @@ export const mealControllers = {
   getSingleMeal,
   createMeal,
   updateMeal,
+  deleteMeal,
   giveReview,
 };
