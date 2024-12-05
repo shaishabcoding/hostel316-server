@@ -37,8 +37,19 @@ const paymentHistory = async () => {
   return payments;
 };
 
+const myPaymentHistory = async (req: Request) => {
+  const user = req.user._id;
+
+  const payments = await Payment.find({ user })
+    .select("-user")
+    .sort({ createdAt: -1 });
+
+  return payments;
+};
+
 export const PaymentServices = {
   createPaymentIntern,
   payment,
   paymentHistory,
+  myPaymentHistory,
 };

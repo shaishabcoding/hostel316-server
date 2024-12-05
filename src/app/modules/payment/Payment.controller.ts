@@ -42,8 +42,19 @@ const paymentHistory: RequestHandler = catchAsync(async (_req, res) => {
   });
 });
 
+const myPaymentHistory: RequestHandler = catchAsync(async (req, res) => {
+  const data = await PaymentServices.myPaymentHistory(req);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    data,
+    message: "Payment history has retrieved successfully!",
+    success: true,
+  });
+});
+
 export const PaymentControllers = {
   createPaymentIntern,
   payment,
   paymentHistory,
+  myPaymentHistory,
 };

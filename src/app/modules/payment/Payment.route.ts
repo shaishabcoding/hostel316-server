@@ -22,4 +22,10 @@ router.post(
 
 router.get("/history", auth(["ADMIN"]), PaymentControllers.paymentHistory);
 
+router.get(
+  "/history/my",
+  auth(["ADMIN", "USER"]),
+  PaymentControllers.myPaymentHistory
+);
+
 export const PaymentRoutes = router;
