@@ -15,6 +15,17 @@ const requestMeal: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
+const cancelRequestMeal: RequestHandler = catchAsync(async (req, res) => {
+  await ReqMealServices.cancelRequestMeal(req);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    message: "Meal request canceled successfully.",
+    success: true,
+  });
+});
+
 export const ReqMealControllers = {
   requestMeal,
+  cancelRequestMeal,
 };

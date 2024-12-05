@@ -24,6 +24,23 @@ const requestMeal = async (req: Request) => {
   return data;
 };
 
+const cancelRequestMeal = async (req: Request) => {
+  const user = req.user._id;
+  const meal = req.params.id;
+
+  const existingRequest = await ReqMeal.findOne({ user, meal });
+
+  if (!existingRequest) {
+    throw new AppError(
+      StatusCodes.NOT_FOUND,
+      "No meal request found to cancel."
+    );
+  }
+
+  await ReqMeal.deleteOne({ _id: existingRequest._id });
+};
+
 export const ReqMealServices = {
   requestMeal,
+  cancelRequestMeal,
 };
