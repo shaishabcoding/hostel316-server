@@ -41,6 +41,10 @@ const mealSchema = new Schema<TMeal>(
   }
 );
 
+mealSchema.virtual("likes").get(function () {
+  return this.likesBy.length;
+});
+
 mealSchema.virtual("rating").get(function () {
   if (this.reviews.length === 0) return 0;
   const totalRating = this.reviews.reduce(
