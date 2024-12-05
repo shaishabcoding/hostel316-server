@@ -2,7 +2,6 @@ import { Request } from "express";
 import QueryBuilder, { QueryParams } from "../../builder/QueryBuilder";
 import { mealSearchableFields } from "./Meal.constant";
 import Meal from "./Meal.model";
-import sendResponse from "../../utils/sendResponse";
 import AppError from "../../errors/AppError";
 import { StatusCodes } from "http-status-codes";
 
@@ -31,7 +30,17 @@ const getSingleMealFromDB = async (req: Request) => {
 
 const insertMealToDB = async (req: Request) => {
   const user = req.user._id;
-  const mealData = { ...req.body, user };
+  const { image, title, category, ingredients, price, description } = req.body;
+  const mealData = {
+    image,
+    title,
+    category,
+    ingredients,
+    price,
+    description,
+    user,
+  };
+
   const meal = await Meal.create(mealData);
   return meal;
 };

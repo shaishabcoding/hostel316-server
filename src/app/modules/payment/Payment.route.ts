@@ -9,8 +9,15 @@ const router = express.Router();
 router.post(
   "/intent",
   auth(["ADMIN", "USER"]),
-  validateRequest(paymentValidation.badgeValidationSchema),
+  validateRequest(paymentValidation.intentValidationSchema),
   PaymentControllers.createPaymentIntern
+);
+
+router.post(
+  "/",
+  auth(["ADMIN", "USER"]),
+  validateRequest(paymentValidation.paymentValidationSchema),
+  PaymentControllers.payment
 );
 
 export const PaymentRoutes = router;

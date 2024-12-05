@@ -21,6 +21,17 @@ const createPaymentIntern: RequestHandler = catchAsync(async (req, res) => {
     success: true,
   });
 });
+
+const payment: RequestHandler = catchAsync(async (req, res) => {
+  const data = await PaymentServices.payment(req);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    data,
+    message: "Payment did successfully!",
+    success: true,
+  });
+});
 export const PaymentControllers = {
   createPaymentIntern,
+  payment,
 };
