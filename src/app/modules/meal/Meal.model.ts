@@ -33,7 +33,12 @@ const mealSchema = new Schema<TMeal>(
       },
     ],
     description: { type: String, required: true },
-    likesBy: [String],
+    likesBy: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     toJSON: { virtuals: true },

@@ -24,7 +24,11 @@ const getAllMealFromDB = async (query: QueryParams) => {
 
 const getSingleMealFromDB = async (req: Request) => {
   const mealId = req.params.id;
-  const meal = await Meal.findById(mealId);
+  const meal = await Meal.findById(mealId).populate({
+    path: "likesBy",
+    select: "name email",
+  });
+
   return meal;
 };
 
