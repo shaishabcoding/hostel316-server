@@ -30,7 +30,7 @@ const paymentHistory = async () => {
   const payments = await Payment.find()
     .populate({
       path: "user",
-      select: "name email",
+      select: "name email image",
     })
     .sort({ createdAt: -1 });
 

@@ -26,7 +26,7 @@ const getSingleMealFromDB = async (req: Request) => {
   const mealId = req.params.id;
   const meal = await Meal.findById(mealId).populate({
     path: "likesBy",
-    select: "name email",
+    select: "name email image",
   });
 
   return meal;
