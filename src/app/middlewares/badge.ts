@@ -11,7 +11,7 @@ export const badge = (badges: TBadge[]) => {
 
       if (!badges.includes(userBadge)) {
         throw new AppError(
-          StatusCodes.FORBIDDEN,
+          StatusCodes.PAYMENT_REQUIRED,
           "You do not have access to this package."
         );
       }

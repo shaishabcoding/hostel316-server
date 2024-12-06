@@ -11,7 +11,7 @@ const requestMeal = async (req: Request) => {
 
   if (existingRequest) {
     throw new AppError(
-      StatusCodes.CONFLICT,
+      StatusCodes.BAD_REQUEST,
       "You have already requested this meal."
     );
   }
@@ -40,7 +40,25 @@ const cancelRequestMeal = async (req: Request) => {
   await ReqMeal.deleteOne({ _id: existingRequest._id });
 };
 
+const serveMeal = async (req: Request) => {
+  const meal = req.params.id;
+
+  const mealRequest = await ReqMeal.findOne({ meal });
+
+  if (!mealRequest) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Requested meal not found.");
+  }
+
+  if (mealRequest.status === "Delivered") {
+    throw new AppError(StatusCodes.BAD_REQUEST, "Meal is already served.");
+  }
+
+  mealRequest.status = "Delivered";
+  await mealRequest.save();
+};
+
 export const ReqMealServices = {
   requestMeal,
   cancelRequestMeal,
+  serveMeal,
 };
