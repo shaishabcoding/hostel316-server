@@ -30,8 +30,9 @@
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/http-status": "^1.1.2",
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^22.10.1",
+    "@types/nodemailer": "^6.4.17",
     "typescript": "^5.7.2"
   }
 }
