@@ -1,6 +1,6 @@
 import { ZodError, ZodIssue } from "zod";
 import { TErrorSources, TGenericErrorResponse } from "../interface/error";
-import httpStatus from "http-status";
+import { StatusCodes } from "http-status-codes";
 
 const handleZodError = (err: ZodError): TGenericErrorResponse => {
   const errorSources: TErrorSources = err.issues.map((issue: ZodIssue) => {
@@ -10,10 +10,8 @@ const handleZodError = (err: ZodError): TGenericErrorResponse => {
     };
   });
 
-  const statusCode = httpStatus.BAD_REQUEST;
-
   return {
-    statusCode,
+    statusCode: StatusCodes.BAD_REQUEST,
     message: "Validation Error",
     errorSources,
   };

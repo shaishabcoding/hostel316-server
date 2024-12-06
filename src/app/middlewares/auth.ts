@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../errors/AppError";
-import httpStatus from "http-status";
 import { TTokenType, verifyToken } from "../modules/auth/Auth.utils";
 import User from "../modules/user/User.model";
+import { StatusCodes } from "http-status-codes";
 export type TRole = "ADMIN" | "USER" | "SUPER_ADMIN";
 
 export const auth = (roles: TRole[], type: TTokenType = "access") => {
@@ -11,7 +11,7 @@ export const auth = (roles: TRole[], type: TTokenType = "access") => {
     async (req: Request, _res: Response, next: NextFunction) => {
       const token = req.headers.authorization;
       if (!token) {
-        throw new AppError(httpStatus.UNAUTHORIZED, "Access Denied!");
+        throw new AppError(StatusCodes.UNAUTHORIZED, "Access Denied!");
       }
 
       const { email } = verifyToken(token, type);
@@ -21,12 +21,12 @@ export const auth = (roles: TRole[], type: TTokenType = "access") => {
       }).select("+password");
 
       if (!user) {
-        throw new AppError(httpStatus.NOT_FOUND, "User not found!");
+        throw new AppError(StatusCodes.NOT_FOUND, "User not found!");
       }
 
       if (user.status !== "ACTIVE") {
         throw new AppError(
-          httpStatus.FORBIDDEN,
+          StatusCodes.FORBIDDEN,
           "Account is not active. Please contact support."
         );
       }

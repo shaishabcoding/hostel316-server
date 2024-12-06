@@ -1,4 +1,3 @@
-import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
 import User from "../user/User.model";
 import { TLoginUser } from "./Auth.validation";
@@ -8,6 +7,7 @@ import { TUser } from "../user/User.interface";
 import config from "../../config";
 import { sendMail } from "../../utils/sendMail";
 import { makeResetBody } from "./Auth.constant";
+import { StatusCodes } from "http-status-codes";
 
 const loginUser = async ({ email, password }: TLoginUser) => {
   const user = await User.findOne({
@@ -15,19 +15,19 @@ const loginUser = async ({ email, password }: TLoginUser) => {
   }).select("+password");
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
+    throw new AppError(StatusCodes.NOT_FOUND, "User not found!");
   }
 
   if (user.status !== "ACTIVE") {
     throw new AppError(
-      httpStatus.FORBIDDEN,
+      StatusCodes.FORBIDDEN,
       "Account is not active. Please contact support."
     );
   }
 
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if (!isPasswordValid) {
-    throw new AppError(httpStatus.UNAUTHORIZED, "Incorrect password!");
+    throw new AppError(StatusCodes.UNAUTHORIZED, "Incorrect password!");
   }
 
   const {
@@ -60,7 +60,7 @@ const loginUser = async ({ email, password }: TLoginUser) => {
 
 const refreshToken = async (token: string) => {
   if (!token) {
-    throw new AppError(httpStatus.UNAUTHORIZED, "Access Denied!");
+    throw new AppError(StatusCodes.UNAUTHORIZED, "Access Denied!");
   }
 
   const { email } = verifyToken(token, "refresh");
@@ -70,12 +70,12 @@ const refreshToken = async (token: string) => {
   });
 
   if (!user) {
-    throw new AppError(httpStatus.NOT_FOUND, "User not found!");
+    throw new AppError(StatusCodes.NOT_FOUND, "User not found!");
   }
 
   if (user.status !== "ACTIVE") {
     throw new AppError(
-      httpStatus.FORBIDDEN,
+      StatusCodes.FORBIDDEN,
       "Account is not active. Please contact support."
     );
   }
@@ -101,7 +101,7 @@ const changePassword = async (
 ) => {
   const isPasswordValid = await bcrypt.compare(oldPassword, user.password);
   if (!isPasswordValid) {
-    throw new AppError(httpStatus.UNAUTHORIZED, "Incorrect password!");
+    throw new AppError(StatusCodes.UNAUTHORIZED, "Incorrect password!");
   }
 
   newPassword = await bcrypt.hash(newPassword, config.bcrypt_salt_rounds);

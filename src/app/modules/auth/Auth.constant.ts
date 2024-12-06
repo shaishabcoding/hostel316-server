@@ -1,6 +1,22 @@
 import config from "../../config";
 import { TUser } from "../user/User.interface";
 
+export const superAdminData: Partial<TUser> = {
+  name: {
+    firstName: "Shaishab",
+    lastName: "Chandra Shil",
+  },
+  gender: "male",
+  email: config.super_admin_email,
+  contactNo: "+8801823466316",
+  dateOfBirth: new Date("2006-04-04T00:00:00.000Z"),
+  password: config.super_admin_pass,
+  role: "SUPER_ADMIN",
+  status: "ACTIVE",
+  badge: "platinum",
+  image: "https://avatars.githubusercontent.com/u/109936547?v=4",
+};
+
 export const makeResetBody = (resetToken: string) => `
     <html>
       <head>
@@ -75,17 +91,3 @@ export const makeResetBody = (resetToken: string) => `
       </body>
     </html>
   `;
-
-export const superAdminData: TUser = {
-  name: {
-    firstName: "Shaishab",
-    lastName: "Chandra Shil",
-  },
-  gender: "male",
-  email: config.super_admin_email,
-  contactNo: "+8801823466316",
-  dateOfBirth: new Date("2006-04-04T00:00:00.000Z"),
-  password: config.super_admin_pass,
-  role: "SUPER_ADMIN",
-  status: "ACTIVE",
-};

@@ -2,6 +2,7 @@ import { model, Schema, Types } from "mongoose";
 import bcrypt from "bcrypt";
 import { TUser, TUserMethods, TUserModel } from "./User.interface";
 import config from "../../config";
+import { badgeEnums } from "./User.constant";
 
 const userSchema = new Schema<TUser, TUserModel, TUserMethods>(
   {
@@ -28,6 +29,10 @@ const userSchema = new Schema<TUser, TUserModel, TUserMethods>(
       required: true,
       unique: true,
     },
+    image: {
+      type: String,
+      required: true,
+    },
     contactNo: {
       type: String,
       required: true,
@@ -50,6 +55,11 @@ const userSchema = new Schema<TUser, TUserModel, TUserMethods>(
       type: String,
       enum: ["ACTIVE", "SUSPENDED", "DELETED"],
       default: "ACTIVE",
+    },
+    badge: {
+      type: String,
+      enum: badgeEnums,
+      default: "bronze",
     },
   },
   { timestamps: true }
