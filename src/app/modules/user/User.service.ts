@@ -1,7 +1,6 @@
-import { Types } from "mongoose";
 import { TUser } from "./User.interface";
 import User from "./User.model";
-import QueryBuilder, { QueryParams } from "../../builder/QueryBuilder";
+import QueryBuilder, { QueryParams } from "../../utils/QueryBuilder";
 import { userSearchableFields } from "./User.constant";
 
 const createUserIntoDB = async (user: Partial<TUser>) =>

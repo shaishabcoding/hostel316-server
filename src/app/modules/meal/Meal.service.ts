@@ -1,5 +1,5 @@
 import { Request } from "express";
-import QueryBuilder, { QueryParams } from "../../builder/QueryBuilder";
+import QueryBuilder, { QueryParams } from "../../utils/QueryBuilder";
 import { mealSearchableFields } from "./Meal.constant";
 import Meal from "./Meal.model";
 import AppError from "../../errors/AppError";
